@@ -42,6 +42,6 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   pages: {
     signIn: "/",
   },
-  debug: process.env.NODE_ENV !== "production",
+
   session: { strategy: "jwt" },
 });

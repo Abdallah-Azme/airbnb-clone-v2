@@ -4,6 +4,7 @@ import Container from "../Container";
 import Logo from "./Logo";
 import Search from "./Search";
 import UserMenu from "./UserMenu";
+import Categories from "./Categories";
 
 export default async function Navbar() {
   const session = await auth();
@@ -19,6 +20,7 @@ export default async function Navbar() {
           </div>
         </Container>
       </div>
+      <Categories />
     </div>
   );
 }
