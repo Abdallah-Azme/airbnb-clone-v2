@@ -4,7 +4,7 @@ import useLoginModal from "@/hooks/useLoginModal";
 import useRegisterModal from "@/hooks/useRegisterModal";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { AiFillGithub } from "react-icons/ai";
@@ -45,7 +45,10 @@ export default function LoginModal() {
       setIsLoading(false);
     }
   };
-
+  const toggle = useCallback(() => {
+    loginModal.onClose();
+    registerModal.onOpen();
+  }, [registerModal, loginModal]);
   const bodyContent = (
     <div className="flex flex-col gap-4 ">
       <Heading title="Welcome back" subtitle="Login to your account" />
@@ -86,12 +89,12 @@ export default function LoginModal() {
       />
       <div className="text-neutral-500 text-center mt-4 font-light">
         <div className="justify-center flex flex-row items-center gap-2 ">
-          <div className="">Already have an account?</div>
+          <div className="">First time using Airbnb?</div>
           <div
-            onClick={registerModal.onClose}
+            onClick={toggle}
             className="text-neutral-800 cursor-pointer hover:underline "
           >
-            Log in.
+            Create an account.
           </div>
         </div>
       </div>

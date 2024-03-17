@@ -2,7 +2,7 @@
 
 import useRegisterModal from "@/hooks/useRegisterModal";
 import axios from "axios";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import Heading from "../Heading";
@@ -47,7 +47,10 @@ export default function RegisterModal() {
       setIsLoading(false);
     }
   };
-
+  const toggle = useCallback(() => {
+    loginModal.onOpen();
+    registerModal.onClose();
+  }, [registerModal, loginModal]);
   const bodyContent = (
     <div className="flex flex-col gap-4 ">
       <Heading title="Welcome to Airbnb" subtitle="Create an account" />
@@ -98,7 +101,7 @@ export default function RegisterModal() {
         <div className="justify-center flex flex-row items-center gap-2 ">
           <div className="">Already have an account?</div>
           <div
-            onClick={registerModal.onClose}
+            onClick={toggle}
             className="text-neutral-800 cursor-pointer hover:underline "
           >
             Log in.
