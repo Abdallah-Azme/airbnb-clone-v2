@@ -10,7 +10,6 @@ export default async function Home() {
   const listing = await getAllListing();
   const session = await auth();
 
-  console.log(session);
   if (!listing || listing.length === 0) {
     return <EmptyState showReset />;
   }

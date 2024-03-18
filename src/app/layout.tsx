@@ -6,6 +6,7 @@ import "./globals.css";
 import ToasterProvider from "@/providers/ToasterProvider";
 import LoginModal from "@/components/modals/LoginModal";
 import RentModal from "@/components/modals/RentModal";
+import Providers from "@/provides";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -25,12 +26,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={font.className}>
-        <ToasterProvider />
-        <RentModal />
-        <RegisterModal />
-        <LoginModal />
-        <Navbar />
-        <div className="pb-20 pt-28">{children}</div>
+        <Providers>
+          <ToasterProvider />
+          <RentModal />
+          <RegisterModal />
+          <LoginModal />
+          <Navbar />
+          <div className="pb-20 pt-28">{children}</div>
+        </Providers>
       </body>
     </html>
   );

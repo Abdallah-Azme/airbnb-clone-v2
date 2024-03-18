@@ -115,3 +115,15 @@ export async function toggleFavorite(listId: string) {
     return "failed to favorite, try again later!";
   }
 }
+
+export async function getListingById(listingId: string) {
+  try {
+    const listing = await client.listing.findUnique({
+      where: { id: listingId },
+      include: { user: true },
+    });
+    return listing;
+  } catch (error: unknown) {
+    console.log(error);
+  }
+}

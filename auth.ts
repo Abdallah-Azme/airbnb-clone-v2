@@ -8,6 +8,12 @@ import google from "next-auth/providers/google";
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
   adapter: PrismaAdapter(client),
+  callbacks: {
+    async session({ session, user, token }) {
+      session.user.id = token.sub || "";
+      return session;
+    },
+  },
   providers: [
     GitHub,
     google,

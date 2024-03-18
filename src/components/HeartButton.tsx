@@ -1,18 +1,14 @@
 "use client";
 
 import { getUser, toggleFavorite } from "@/actions";
-import { AuthUser } from "@/data";
+import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 
 type HeartButtonProps = {
   listingId: string;
-  currentUser: undefined | AuthUser;
 };
-export default function HeartButton({
-  currentUser,
-  listingId,
-}: HeartButtonProps) {
+export default function HeartButton({ listingId }: HeartButtonProps) {
   const [hasFavored, setHasFavored] = useState<boolean | undefined>(false);
 
   useEffect(() => {
