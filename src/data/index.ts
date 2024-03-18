@@ -99,3 +99,9 @@ export type CountrySelectValue = {
   region: string;
   value: string;
 };
+
+export type AuthUser = {
+  name: string;
+  email: string;
+  image: string;
+};
