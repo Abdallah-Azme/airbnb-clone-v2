@@ -168,13 +168,11 @@ export async function updateReservation(
   } catch (error) {}
 }
 
-interface IParams {
+export async function getReservations(params: {
   listingId?: string;
   userId?: string;
   authorId?: string;
-}
-
-export async function getReservations(params: IParams) {
+}) {
   try {
     const { listingId, userId, authorId } = params;
 
