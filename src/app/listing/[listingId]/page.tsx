@@ -1,8 +1,6 @@
-import { getListingById, getUser } from "@/actions";
+import { getListingById, getReservations, getUser } from "@/actions";
 import EmptyState from "@/components/EmptyState";
 import ListingClient from "@/components/listing/ListingClient";
-import { User } from "@prisma/client";
-import React from "react";
 
 export default async function page({
   params,
@@ -11,8 +9,15 @@ export default async function page({
 }) {
   const listing = await getListingById(params.listingId);
   const user = await getUser();
+  const reservation = await getReservations(params);
   if (!listing) {
     return <EmptyState />;
   }
-  return <ListingClient listing={listing} curentUser={user} />;
+  return (
+    <ListingClient
+      listing={listing}
+      reservation={reservation}
+      currentUser={user}
+    />
+  );
 }

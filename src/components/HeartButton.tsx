@@ -1,7 +1,6 @@
 "use client";
 
 import { getUser, toggleFavorite } from "@/actions";
-import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 

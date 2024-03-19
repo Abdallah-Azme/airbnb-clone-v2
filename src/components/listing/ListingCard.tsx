@@ -1,13 +1,12 @@
 "use client";
-import { AuthUser } from "@/data";
 import useCountries from "@/hooks/useCountry";
 import { Listing, Reservation } from "@prisma/client";
 import { format } from "date-fns";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useCallback, useMemo } from "react";
-import HeartButton from "../HeartButton";
 import Button from "../Button";
+import HeartButton from "../HeartButton";
 
 type ListingCardProps = {
   data: Listing;
@@ -16,7 +15,6 @@ type ListingCardProps = {
   disabled?: boolean;
   actionLabel?: string;
   actionId?: string;
-  currentUser: undefined | AuthUser;
 };
 export default function ListingCard({
   reservation,
@@ -24,7 +22,7 @@ export default function ListingCard({
   disabled,
   actionLabel,
   actionId = "",
-  currentUser,
+
   data,
 }: ListingCardProps) {
   const router = useRouter();
@@ -73,7 +71,7 @@ export default function ListingCard({
             className="h-full w-full group-hover:scale-110 transition object-cover "
           />
           <div className="absolute top-3 right-3 ">
-            <HeartButton listingId={data.id} currentUser={currentUser} />
+            <HeartButton listingId={data.id} />
           </div>
         </div>
         <div className=" font-semibold text-lg ">

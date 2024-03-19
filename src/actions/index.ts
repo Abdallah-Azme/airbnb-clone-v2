@@ -127,3 +127,103 @@ export async function getListingById(listingId: string) {
     console.log(error);
   }
 }
+
+export async function updateReservation(
+  totalPrice: number,
+  startDate: Date = new Date(Date.now()),
+  endDate: Date | undefined,
+  listingId: string
+) {
+  const session = await auth();
+
+  if (!session || !session.user) {
+    throw new Error("Please login");
+  }
+
+  if (!session.user.id) {
+    throw new Error("Please login");
+  }
+  const userId = session.user.id;
+
+  if (!totalPrice || !startDate || !endDate || !listingId) {
+    throw new Error("There is no enough data!");
+  }
+
+  try {
+    const listingAndReservation = await client.listing.update({
+      where: {
+        id: listingId,
+      },
+      data: {
+        reservations: {
+          create: {
+            userId,
+            startDate,
+            endDate,
+            totalPrice,
+          },
+        },
+      },
+    });
+  } catch (error) {}
+}
+
+interface IParams {
+  listingId?: string;
+  userId?: string;
+  authorId?: string;
+}
+
+export async function getReservations(params: IParams) {
+  try {
+    const { listingId, userId, authorId } = params;
+
+    const query: any = {};
+
+    if (listingId) {
+      query.listingId = listingId;
+    }
+
+    if (userId) {
+      query.userId = userId;
+    }
+
+    if (authorId) {
+      query.listing = { userId: authorId };
+    }
+
+    const reservations = await client.reservation.findMany({
+      where: query,
+      include: {
+        listing: true,
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
+
+    return reservations;
+  } catch (error: any) {
+    throw new Error(error);
+  }
+}
+
+export async function deleteReservation(idReservation: string) {
+  const session = await auth();
+  const user = session?.user;
+
+  if (!session || !user) {
+    throw new Error("You need to log in.");
+  }
+  try {
+    await client.reservation.deleteMany({
+      where: {
+        id: idReservation,
+        OR: [{ userId: user.id }, { listing: { userId: user.id } }],
+      },
+    });
+  } catch (error) {
+    console.error(error);
+    throw new Error("Failed to delete reservation");
+  }
+}
