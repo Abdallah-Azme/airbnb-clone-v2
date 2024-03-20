@@ -1,6 +1,6 @@
 "use client";
 import EmptyState from "@/components/EmptyState";
-import { useEffect } from "react";
+import { Suspense, useEffect } from "react";
 
 type ErrorProps = {
   error: Error;
@@ -11,5 +11,9 @@ export default function Error({ error }: ErrorProps) {
     console.error(error);
   }, [error]);
 
-  return <EmptyState title="Uh Oh" subtitle="Something went wrong!" />;
+  return (
+    <Suspense>
+      <EmptyState title="Uh Oh" subtitle="Something went wrong!" />;
+    </Suspense>
+  );
 }

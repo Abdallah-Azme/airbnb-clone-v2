@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import { auth } from "../../../auth";
 import EmptyState from "@/components/EmptyState";
 import { getReservations } from "@/actions";
@@ -27,6 +27,8 @@ export default async function page() {
     );
   }
   return (
-    <TripsClient reservations={reservation} currentUser={user as AuthUser} />
+    <Suspense>
+      <TripsClient reservations={reservation} currentUser={user as AuthUser} />
+    </Suspense>
   );
 }

@@ -2,6 +2,7 @@ import { getReservations } from "@/actions";
 import EmptyState from "@/components/EmptyState";
 import { auth } from "../../../auth";
 import ReservationsClient from "./ReservationsClient";
+import { Suspense } from "react";
 
 export default async function page() {
   const session = await auth();
@@ -22,5 +23,9 @@ export default async function page() {
     );
   }
 
-  return <ReservationsClient reservations={reservations} />;
+  return (
+    <Suspense>
+      <ReservationsClient reservations={reservations} />;
+    </Suspense>
+  );
 }

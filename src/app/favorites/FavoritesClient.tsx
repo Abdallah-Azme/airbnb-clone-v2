@@ -5,16 +5,18 @@ import Heading from "@/components/Heading";
 import ListingCard from "@/components/listing/ListingCard";
 import { AuthUser } from "@/data";
 import { Listing } from "@prisma/client";
+import { Suspense } from "react";
 
 interface FavoritesClientProps {
   listings: Listing[];
 }
 export default function FavoritesClient({ listings }: FavoritesClientProps) {
   return (
-    <Container>
-      <Heading title="Favorites" subtitle="List of places you favored!" />
-      <div
-        className="
+    <Suspense>
+      <Container>
+        <Heading title="Favorites" subtitle="List of places you favored!" />
+        <div
+          className="
           mt-10
           grid 
           grid-cols-1 
@@ -25,11 +27,12 @@ export default function FavoritesClient({ listings }: FavoritesClientProps) {
           2xl:grid-cols-6
           gap-8
         "
-      >
-        {listings.map((listing: any) => (
-          <ListingCard key={listing.id} data={listing} />
-        ))}
-      </div>
-    </Container>
+        >
+          {listings.map((listing: any) => (
+            <ListingCard key={listing.id} data={listing} />
+          ))}
+        </div>
+      </Container>
+    </Suspense>
   );
 }

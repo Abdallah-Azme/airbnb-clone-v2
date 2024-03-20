@@ -3,6 +3,7 @@ import EmptyState from "@/components/EmptyState";
 import { AuthUser } from "@/data";
 import { auth } from "../../../auth";
 import PropertiesClient from "./PropertiesClient";
+import { Suspense } from "react";
 
 export default async function page() {
   const session = await auth();
@@ -25,5 +26,9 @@ export default async function page() {
       />
     );
   }
-  return <PropertiesClient listing={listing} currentUser={user as AuthUser} />;
+  return (
+    <Suspense>
+      <PropertiesClient listing={listing} currentUser={user as AuthUser} />;
+    </Suspense>
+  );
 }
