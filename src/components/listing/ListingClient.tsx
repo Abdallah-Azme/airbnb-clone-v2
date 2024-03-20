@@ -93,7 +93,7 @@ export default function ListingClient({
   }, [dateRange, listing.price]);
 
   return (
-    <Suspense>
+    <Suspense fallback={<div>Loading...</div>}>
       <div className="max-w-screen-lg mx-auto ">
         <div className="flex flex-col gap-6">
           <ListingHead

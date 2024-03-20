@@ -24,7 +24,7 @@ export default async function page() {
   }
 
   return (
-    <Suspense>
+    <Suspense fallback={<div>Loading...</div>}>
       <ReservationsClient reservations={reservations} />;
     </Suspense>
   );

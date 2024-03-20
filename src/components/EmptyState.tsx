@@ -17,7 +17,7 @@ export default function EmptyState({
 }: EmptyStateProps) {
   const router = useRouter();
   return (
-    <Suspense>
+    <Suspense fallback={<div>Loading...</div>}>
       <div className=" h-[60vh] flex flex-col gap-2 justify-center items-center ">
         <Heading title={title} subtitle={subtitle} center />
         <div className="w-48 mt-4">

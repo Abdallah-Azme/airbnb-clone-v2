@@ -12,7 +12,7 @@ interface FavoritesClientProps {
 }
 export default function FavoritesClient({ listings }: FavoritesClientProps) {
   return (
-    <Suspense>
+    <Suspense fallback={<div>Loading...</div>}>
       <Container>
         <Heading title="Favorites" subtitle="List of places you favored!" />
         <div

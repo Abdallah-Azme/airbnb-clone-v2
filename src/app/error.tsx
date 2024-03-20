@@ -12,7 +12,7 @@ export default function Error({ error }: ErrorProps) {
   }, [error]);
 
   return (
-    <Suspense>
+    <Suspense fallback={<div>Loading...</div>}>
       <EmptyState title="Uh Oh" subtitle="Something went wrong!" />;
     </Suspense>
   );

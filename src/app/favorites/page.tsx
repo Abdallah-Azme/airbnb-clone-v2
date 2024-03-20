@@ -8,7 +8,7 @@ export default async function page() {
 
   if (listings.length === 0) {
     return (
-      <Suspense>
+      <Suspense fallback={<div>Loading...</div>}>
         <EmptyState
           title="No favorites found"
           subtitle="Looks like you have no favorite listings."
@@ -17,7 +17,7 @@ export default async function page() {
     );
   }
   return (
-    <Suspense>
+    <Suspense fallback={<div>Loading...</div>}>
       <FavoritesClient listings={listings} />;
     </Suspense>
   );

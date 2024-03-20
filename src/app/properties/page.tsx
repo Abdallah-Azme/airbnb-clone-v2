@@ -27,7 +27,7 @@ export default async function page() {
     );
   }
   return (
-    <Suspense>
+    <Suspense fallback={<div>Loading...</div>}>
       <PropertiesClient listing={listing} currentUser={user as AuthUser} />;
     </Suspense>
   );
