@@ -40,7 +40,6 @@ export default function LoginModal() {
       loginModal.onClose();
     } catch (error) {
       toast.error("Something went wrong");
-      console.log(error);
     } finally {
       setIsLoading(false);
     }

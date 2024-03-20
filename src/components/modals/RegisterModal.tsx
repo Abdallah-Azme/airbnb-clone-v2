@@ -41,7 +41,6 @@ export default function RegisterModal() {
       reset();
       loginModal.onOpen();
     } catch (error) {
-      console.log(error);
       toast.error("Something went wrong");
     } finally {
       setIsLoading(false);

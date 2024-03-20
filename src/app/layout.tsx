@@ -7,6 +7,7 @@ import ToasterProvider from "@/providers/ToasterProvider";
 import LoginModal from "@/components/modals/LoginModal";
 import RentModal from "@/components/modals/RentModal";
 import Providers from "@/provides";
+import SearchModal from "@/components/modals/SearchModal";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -29,6 +30,7 @@ export default function RootLayout({
         <Providers>
           <ToasterProvider />
           <RentModal />
+          <SearchModal />
           <RegisterModal />
           <LoginModal />
           <Navbar />

@@ -1,10 +1,14 @@
-import { getAllListing } from "@/actions";
+import { ListingsParams, getAllListing } from "@/actions";
 import Container from "@/components/Container";
 import EmptyState from "@/components/EmptyState";
 import ListingCard from "@/components/listing/ListingCard";
 import { Listing } from "@prisma/client";
 
-export default async function Home({ searchParams }: { searchParams: string }) {
+type HomeProps = {
+  searchParams: ListingsParams;
+};
+
+export default async function Home({ searchParams }: HomeProps) {
   const listing = await getAllListing(searchParams);
 
   if (!listing || listing.length === 0) {
