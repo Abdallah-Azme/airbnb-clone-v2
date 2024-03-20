@@ -1,32 +1,28 @@
 "use client";
-
-import { deleteReservation } from "@/actions";
+import { deleteProperty } from "@/actions";
 import Container from "@/components/Container";
 import Heading from "@/components/Heading";
 import ListingCard from "@/components/listing/ListingCard";
 import { AuthUser } from "@/data";
-import { Reservation } from "@prisma/client";
+import { Listing } from "@prisma/client";
 import { useRouter } from "next/navigation";
 import { useCallback, useState } from "react";
 import toast from "react-hot-toast";
-
-interface ReservationsClientProps {
-  reservations: Reservation[];
+type TripsClientProps = {
+  listing: Listing[] | undefined;
   currentUser?: AuthUser | null;
-}
-export default function ReservationsClient({
-  reservations,
-  currentUser,
-}: ReservationsClientProps) {
+};
+export default function PropertiesClient({ listing }: TripsClientProps) {
   const router = useRouter();
   const [deletingId, setDeletingId] = useState("");
 
   const onCancel = useCallback(
     async (id: string) => {
       setDeletingId(id);
+
       try {
-        await deleteReservation(id);
-        toast.success("Reservation cancelled");
+        await deleteProperty(id);
+        toast.success("Listing deleted successfully");
         router.refresh();
       } catch (error: unknown) {
         toast.error("Failed to delete");
@@ -39,7 +35,7 @@ export default function ReservationsClient({
 
   return (
     <Container>
-      <Heading title="Reservations" subtitle="Bookings on your properties" />
+      <Heading title="Properties" subtitle="List of your properties" />
       <div
         className="
           mt-10
@@ -53,15 +49,14 @@ export default function ReservationsClient({
           gap-8
         "
       >
-        {reservations.map((reservation: any) => (
+        {listing?.map((listing: any) => (
           <ListingCard
-            key={reservation.id}
-            data={reservation.listing}
-            reservation={reservation}
-            actionId={reservation.id}
+            key={listing.id}
+            data={listing}
+            actionId={listing.id}
             onAction={onCancel}
-            disabled={deletingId === reservation.id}
-            actionLabel="Cancel guest reservation"
+            disabled={deletingId === listing.id}
+            actionLabel="Delete property"
           />
         ))}
       </div>

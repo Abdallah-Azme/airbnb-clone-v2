@@ -78,9 +78,15 @@ export async function createNewList(formData: FieldValues) {
   });
 }
 
-export async function getAllListing() {
+export async function getAllListing(userId?: string) {
   try {
+    let query: any = {};
+
+    if (userId) {
+      query.userId = userId;
+    }
     const listing = await client.listing.findMany({
+      where: query,
       orderBy: {
         createdAt: "desc",
       },
@@ -223,5 +229,41 @@ export async function deleteReservation(idReservation: string) {
   } catch (error) {
     console.error(error);
     throw new Error("Failed to delete reservation");
+  }
+}
+
+export async function getFavoriteListings() {
+  const user = await getUser();
+  if (!user) throw new Error("You need to login");
+  try {
+    const favorites = await client.listing.findMany({
+      where: {
+        id: {
+          in: [...(user.favoriteIds || [])],
+        },
+      },
+    });
+    return favorites;
+  } catch (error) {
+    console.error(error);
+    throw new Error("Failed to get favorites");
+  }
+}
+
+export async function deleteProperty(listingId: string) {
+  const user = await getUser();
+  if (!user) {
+    throw new Error("You need to be logged in");
+  }
+  try {
+    await client.listing.deleteMany({
+      where: {
+        id: listingId,
+        userId: user.id,
+      },
+    });
+  } catch (error) {
+    console.error(error);
+    throw new Error("Failed to delete property");
   }
 }
