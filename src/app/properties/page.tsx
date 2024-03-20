@@ -16,7 +16,7 @@ export default async function page() {
       />
     );
   }
-  const listing = await getAllListing(user.id || "");
+  const listing = await getAllListing({ userId: user.id });
   if (listing?.length === 0) {
     return (
       <EmptyState
